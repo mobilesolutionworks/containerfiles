@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Test network
+      - name: Build
         run: |
           cd oraclelinux9
           echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
