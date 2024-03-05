@@ -1,0 +1,23 @@
+name: work
+
+# Triggers for when the workflow will run
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  oraclelinux9:
+    name:
+    runs-on: self-hosted
+
+    steps:
+      # The "actions/checkout" action helps pull your code from GitHub into the GitHub Actions runner
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Test network
+        run: |
+          cd oraclelinux9
+          echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
+          docker build --compress --pull --rm -t registry.funf/build/oraclelinux .
+          docker push registry.funf/build/oraclelinux
