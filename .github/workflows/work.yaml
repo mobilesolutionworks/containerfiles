@@ -10,11 +10,11 @@ jobs:
     name:
     runs-on: self-hosted
     container:
-      image: ubuntu-20.04
+      image: node
     steps:
       # The "actions/checkout" action helps pull your code from GitHub into the GitHub Actions runner
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build
         run: |
