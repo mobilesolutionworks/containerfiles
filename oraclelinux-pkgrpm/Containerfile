@@ -1,0 +1,6 @@
+FROM docker.funf/build/oraclelinux as oraclelinux
+
+RUN yum update -y && yum install -y \
+    rpmdevtools rpm-build rpm-sign \
+    && yum clean all \
+    && rm -rf /var/cache/yum/*
