@@ -10,7 +10,7 @@ jobs:
     name: oraclelinux9
     if: ${{ github.event.push.paths == 'oraclelinux9/**' }}
     outputs:
-      oraclelinux9: ${{ steps.decide.outputs.oraclelinux9 }
+      oraclelinux9: ${{ steps.decide.outputs.oraclelinux9 }}
     runs-on: self-hosted
     container:
       image: docker.funf/docker:dind
