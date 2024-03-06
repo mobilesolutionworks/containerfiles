@@ -10,7 +10,8 @@ jobs:
     name:
     runs-on: self-hosted
     container:
-      image: docker.funf/oraclelinux:9
+      image: docker.funf/docker:dind
+      options: --privileged
     steps:
       # The "actions/checkout" action helps pull your code from GitHub into the GitHub Actions runner
       - name: Checkout code
