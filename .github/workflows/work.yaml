@@ -3,18 +3,18 @@ name: work
 # Triggers for when the workflow will run
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   oraclelinux9:
     name:
     runs-on: self-hosted
     container:
-      image: node
+      image: docker.funf/oraclelinux:9
     steps:
       # The "actions/checkout" action helps pull your code from GitHub into the GitHub Actions runner
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         run: |
