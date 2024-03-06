@@ -8,15 +8,11 @@ on:
 jobs:
   oraclelinux9:
     name: oraclelinux9
-#    if: ${{ contains(github.event.push.paths, 'oraclelinux9/') }}
-#    outputs:
-#      oraclelinux9: ${{ steps.decide.outputs.oraclelinux9 }}
     runs-on: self-hosted
     container:
       image: docker.funf/docker:dind
       options: --privileged
     steps:
-      # The "actions/checkout" action helps pull your code from GitHub into the GitHub Actions runner
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -26,26 +22,21 @@ jobs:
           echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
           docker build --compress --pull --rm -t registry.funf/build/oraclelinux . --file Containerfile
           docker push registry.funf/build/oraclelinux
-      - name: Decide if Child1 should run
-        id: decide
-        run: echo "::set-output name=success::true"
 
   oraclelinux9-pkgrpm:
     name: oraclelinux9-pkgrpm
     needs: [ oraclelinux9 ]
-#    if: ${{ needs.oraclelinux9.outputs.success == 'true' || contains(github.event.push.paths, 'oraclelinux9-pkgrpm/') }}
     runs-on: self-hosted
     container:
       image: docker.funf/docker:dind
       options: --privileged
     steps:
-      # The "actions/checkout" action helps pull your code from GitHub into the GitHub Actions runner
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Build
         run: |
-          cd oraclelinux9
+          cd oraclelinux9-pkgrpm
           echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
-          docker build --compress --pull --rm -t registry.funf/build/oraclelinux . --file Containerfile
-          docker push registry.funf/build/oraclelinux
+          docker build --compress --pull --rm -t registry.funf/build/oraclelinux9-pkgrpm . --file Containerfile
+          docker push registry.funf/build/oraclelinux9-pkgrpm
