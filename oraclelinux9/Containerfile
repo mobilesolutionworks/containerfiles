@@ -7,14 +7,12 @@ FROM docker.funf/oraclelinux:9 as oraclelinux
 
 COPY --from=files /files /
 
-ENV TZ Asia/Singapore
-ENV LANG C.UTF-8
-
 RUN yum update -y && yum install -y \
-    mobilesolutionworks-ca \
+    ca-certificates \
     git wget curl \
     zip unzip \
     && yum clean all \
-    && rm -rf /var/cache/yum/*
+    && rm -rf /var/cache/yum/* \
+    && update-ca-trust
 
 SHELL [ "/bin/bash", "-lc" ]
