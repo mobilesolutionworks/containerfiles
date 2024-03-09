@@ -6,6 +6,23 @@ on:
     branches: [ main, develop ]
 
 jobs:
+  ubuntu-lunar:
+    name: ubuntu-lunar
+    runs-on: self-hosted
+    container:
+      image: docker.funf/docker:dind
+      options: --privileged
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          cd ubuntu-lunar
+          echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
+          docker build --compress --pull --rm -t registry.funf/build/ubuntu-lunar . --file Containerfile
+          docker push registry.funf/build/ubuntu-lunar
+
   oraclelinux9:
     name: oraclelinux9
     runs-on: self-hosted
@@ -21,10 +38,10 @@ jobs:
           cd oraclelinux9
           echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
           docker build --compress --pull --rm -t registry.funf/build/oraclelinux . --file Containerfile
-          docker push registry.funf/build/oraclelinux
+          docker push registry.funf/build/oraclelinux9
 
-  oraclelinux9-pkgrpm:
-    name: oraclelinux9-pkgrpm
+  oraclelinux9-pkg:
+    name: oraclelinux9-pkg
     needs: [ oraclelinux9 ]
     runs-on: self-hosted
     container:
@@ -36,7 +53,7 @@ jobs:
 
       - name: Build
         run: |
-          cd oraclelinux9-pkgrpm
+          cd oraclelinux9-pkg
           echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
-          docker build --compress --pull --rm -t registry.funf/build/oraclelinux9-pkgrpm . --file Containerfile
-          docker push registry.funf/build/oraclelinux9-pkgrpm
+          docker build --compress --pull --rm -t registry.funf/build/oraclelinux9-pkg . --file Containerfile
+          docker push registry.funf/build/oraclelinux9-pkg

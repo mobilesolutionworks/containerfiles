@@ -1,0 +1,19 @@
+FROM docker.funf/ubuntu:lunar as files
+
+ADD files /files
+RUN chmod 644 /files/etc/apt/trusted.gpg.d/mobilesolutionworks.gpg
+
+FROM docker.funf/ubuntu:lunar as ubuntu
+
+COPY --from=files /files /
+
+RUN export DEBIAN_FRONTEND="noninteractive" && apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    git wget curl \
+    zip unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && update-ca-certificates \
+    && userdel ubuntu \
+    && useradd -m works
+
+SHELL [ "/bin/bash", "-lc" ]
