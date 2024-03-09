@@ -17,11 +17,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        run: |
-          cd ubuntu-lunar
-          echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
-          docker build --compress --pull --rm -t registry.funf/build/ubuntu-lunar . --file Containerfile
-          docker push registry.funf/build/ubuntu-lunar
+        uses: mobilesolutionworks/gha-build-container-action@main
+        with:
+          path: ubuntu-lunar
+          tag: registry.funf/build/ubuntu-lunar
 
   oraclelinux9:
     name: oraclelinux9
@@ -34,11 +33,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        run: |
-          cd oraclelinux9
-          echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
-          docker build --compress --pull --rm -t registry.funf/build/oraclelinux9 . --file Containerfile
-          docker push registry.funf/build/oraclelinux9
+        uses: mobilesolutionworks/gha-build-container-action@main
+        with:
+          path: oraclelinux9
+          tag: registry.funf/build/oraclelinux9
+
 
   oraclelinux9-pkg:
     name: oraclelinux9-pkg
@@ -52,8 +51,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        run: |
-          cd oraclelinux9-pkg
-          echo "jenkins" | docker login registry.funf -u jenkins --password-stdin 
-          docker build --compress --pull --rm -t registry.funf/build/oraclelinux9-pkg . --file Containerfile
-          docker push registry.funf/build/oraclelinux9-pkg
+        uses: mobilesolutionworks/gha-build-container-action@main
+        with:
+          path: oraclelinux9-pkg
+          tag: registry.funf/build/oraclelinux9-pkg
