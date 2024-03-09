@@ -1,6 +1,5 @@
 name: work
 
-# Triggers for when the workflow will run
 on:
   push:
     branches: [ main, develop ]
@@ -37,7 +36,6 @@ jobs:
         with:
           path: oraclelinux9
           tag: registry.funf/build/oraclelinux9
-
 
   oraclelinux9-pkg:
     name: oraclelinux9-pkg
