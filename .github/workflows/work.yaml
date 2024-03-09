@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        uses: mobilesolutionworks/gha-build-container-action@main
+        uses: mobilesolutionworks/gha-publish-containerfile-action@main
         with:
           path: ubuntu-lunar
           tag: registry.funf/build/ubuntu-lunar
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        uses: mobilesolutionworks/gha-build-container-action@main
+        uses: mobilesolutionworks/gha-publish-containerfile-action@main
         with:
           path: oraclelinux9
           tag: registry.funf/build/oraclelinux9
@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-        uses: mobilesolutionworks/gha-build-container-action@main
+        uses: mobilesolutionworks/gha-publish-containerfile-action@main
         with:
           path: oraclelinux9-pkg
           tag: registry.funf/build/oraclelinux9-pkg
