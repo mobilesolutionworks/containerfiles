@@ -1,18 +1,16 @@
-name: work
+name: works
 
 on:
   push:
     branches: [ main, develop ]
 
 jobs:
-  build:
-    name: build
+  works:
+    name: works
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build
-        run: |
-          gradle build-all
-        shell: sh
+      - name: Build and Publish
+        run: gradle build-all
