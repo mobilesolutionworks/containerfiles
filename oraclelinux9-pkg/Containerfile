@@ -5,6 +5,5 @@ RUN yum update -y && yum install -y \
     && yum clean all \
     && rm -rf /var/cache/yum/*
 
-ENV A Bcaaaaaaaa
 USER works
 WORKDIR /home/works
