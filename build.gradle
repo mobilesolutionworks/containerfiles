@@ -1,0 +1,92 @@
+plugins {
+}
+
+def buildRequires = [
+        'oraclelinux9-ci' : 'oraclelinux9',
+        'oraclelinux9-pkg': 'oraclelinux9',
+]
+
+def buildTasks = project.fileTree(dir: '.').matching { it ->
+    it.include '**/Containerfile'
+}.collect { file ->
+    file.parentFile.name
+}.collect { name ->
+    tasks.register("build-%s".formatted(name)) {
+        group = 'build'
+
+        def inspectFile = project.file("build/output/%s.json".formatted(name))
+
+        inputs.dir(project.file(name))
+        inputs.files()
+        outputs.file(inspectFile.path)
+        outputs.cacheIf { true }
+
+        doLast {
+            exec {
+                commandLine(['echo', 'OK'])
+            }
+        }
+
+        doLast {
+            exec {
+                commandLine(['docker', 'build', '--compress', '--pull', '-t', "registry.funf/build/%s".formatted(name), '.', '--file', 'Containerfile'])
+                workingDir(name)
+            }
+
+            exec {
+                commandLine(['docker', 'push', "registry.funf/build/%s".formatted(name)])
+                workingDir(name)
+            }
+
+            exec {
+                commandLine(['docker', 'inspect', "registry.funf/build/%s".formatted(name)])
+                workingDir(name)
+                standardOutput = inspectFile.newOutputStream()
+            }
+        }
+    }
+}
+
+buildTasks.each {
+    it.configure { child ->
+        def buildName = child.name.substring('build-'.length())
+        def fromParent = buildRequires[buildName]
+
+        if (fromParent) {
+            def parent = project.tasks.findByName("build-%s".formatted(fromParent))
+
+            dependsOn(parent)
+            child.inputs.files(parent.outputs)
+        }
+    }
+}
+
+tasks.register('configure') {
+    doLast {
+        project.file('build/output').mkdirs()
+    }
+}
+
+tasks.register('auth') {
+    group = 'build'
+    dependsOn('configure')
+
+    doLast {
+        exec {
+            commandLine(['docker', 'login', 'registry.funf', '--username', 'gh', '--password-stdin'])
+            standardInput = new ByteArrayInputStream('gh'.bytes)
+        }
+    }
+}
+
+tasks.register('build') {
+    group = 'build'
+
+    dependsOn(buildTasks)
+}
+
+tasks.register('build-all') {
+    group = 'build'
+
+    dependsOn('auth', 'build')
+}
