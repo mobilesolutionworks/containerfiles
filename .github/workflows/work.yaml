@@ -53,3 +53,20 @@ jobs:
         with:
           path: oraclelinux9-pkg
           tag: registry.funf/build/oraclelinux9-pkg
+
+  oraclelinux9-ci:
+    name: oraclelinux9-ci
+    needs: [ oraclelinux9 ]
+    runs-on: self-hosted
+    container:
+      image: docker.funf/docker:dind
+      options: --privileged
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        uses: mobilesolutionworks/actions/publish-containerfile@main
+        with:
+          path: oraclelinux9-ci
+          tag: registry.funf/build/oraclelinux9-ci

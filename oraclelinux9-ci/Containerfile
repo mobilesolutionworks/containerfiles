@@ -1,0 +1,14 @@
+FROM docker.funf/build/oraclelinux9 as files
+
+ADD files /files
+RUN export SDKMAN_DIR="/usr/local/sdkman" \
+    && curl -s "https://get.sdkman.io" | bash \
+    && mkdir -p /files/usr/local/ \
+    && cp -r /usr/local/sdkman /files/usr/local/
+
+FROM docker.funf/build/oraclelinux9 as oraclelinux
+
+COPY --from=files /files /
+
+RUN sdk install java 17.0.10-tem \
+    && sdk install gradle 8.6
