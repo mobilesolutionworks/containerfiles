@@ -12,5 +12,5 @@ COPY --from=files /files /
 
 RUN sdk install java 17.0.10-tem \
     && sdk install gradle 8.6 \
-    && keytool -import -trustcacerts -alias your_alias -file /etc/pki/ca-trust/source/anchors/root_ca.crt \
-       -keystore  /usr/local/sdkman/candidates/java/17.0.10-tem/lib/security/cacerts --storepass changeit -noprompt
+    && keytool -import -trustcacerts -cacerts -alias your_alias -file /etc/pki/ca-trust/source/anchors/root_ca.crt \
+       --storepass changeit -noprompt
