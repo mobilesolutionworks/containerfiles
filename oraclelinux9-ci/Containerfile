@@ -1,0 +1,16 @@
+FROM docker.funf/build/oraclelinux9 as files
+
+ADD files /files
+RUN export SDKMAN_DIR="/usr/local/sdkman" \
+    && curl -s "https://get.sdkman.io" | bash \
+    && mkdir -p /files/usr/local/ \
+    && cp -r /usr/local/sdkman /files/usr/local/
+
+FROM docker.funf/build/oraclelinux9 as oraclelinux
+
+COPY --from=files /files /
+
+RUN sdk install java 17.0.10-tem \
+    && sdk install gradle 8.6 \
+    && keytool -import -trustcacerts -alias your_alias -file /etc/pki/ca-trust/source/anchors/root_ca.crt \
+       -keystore  /usr/local/sdkman/candidates/java/17.0.10-tem/lib/security/cacerts --storepass changeit -noprompt

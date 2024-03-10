@@ -1,0 +1,9 @@
+FROM docker.funf/build/oraclelinux9 as oraclelinux
+
+RUN yum update -y && yum install -y \
+    rpmdevtools rpm-build rpm-sign \
+    && yum clean all \
+    && rm -rf /var/cache/yum/*
+
+USER works
+WORKDIR /home/works
