@@ -8,9 +8,6 @@ jobs:
   ubuntu-lunar:
     name: ubuntu-lunar
     runs-on: self-hosted
-    container:
-      image: docker.funf/docker:dind
-      options: --privileged
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,9 +21,6 @@ jobs:
   oraclelinux9:
     name: oraclelinux9
     runs-on: self-hosted
-    container:
-      image: docker.funf/docker:dind
-      options: --privileged
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,9 +35,6 @@ jobs:
     name: oraclelinux9-pkg
     needs: [ oraclelinux9 ]
     runs-on: self-hosted
-    container:
-      image: docker.funf/docker:dind
-      options: --privileged
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -58,9 +49,6 @@ jobs:
     name: oraclelinux9-ci
     needs: [ oraclelinux9 ]
     runs-on: self-hosted
-    container:
-      image: docker.funf/docker:dind
-      options: --privileged
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
