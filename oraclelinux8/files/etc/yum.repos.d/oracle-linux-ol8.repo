@@ -1,20 +1,20 @@
 [ol9_baseos_latest]
 name=Oracle Linux 9 BaseOS Latest ($basearch)
-baseurl=http://nxrm.funf/repository/yum-yum.oracle.com-repo/OracleLinux/OL9/baseos/latest/$basearch/
+baseurl=http://nxrm.funf/repository/yum-yum.oracle.com-repo/OracleLinux/OL8/baseos/latest/$basearch/
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
 gpgcheck=1
 enabled=1
 
 [ol9_appstream]
 name=Oracle Linux 9 Application Stream Packages ($basearch)
-baseurl=http://nxrm.funf/repository/yum-yum.oracle.com-repo/OracleLinux/OL9/appstream/$basearch/
+baseurl=http://nxrm.funf/repository/yum-yum.oracle.com-repo/OracleLinux/OL8/appstream/$basearch/
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
 gpgcheck=1
 enabled=1
 
 [ol9_additional]
 name=Oracle Linux 9 Additional Latest ($basearch)
-baseurl=http://nxrm.funf/repository/yum-oraclelinux-9-releases/OracleLinux/OL9/additional
+baseurl=http://nxrm.funf/repository/yum-oraclelinux-releases/OracleLinux/OL8/additional
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
 gpgcheck=1
 enabled=1
