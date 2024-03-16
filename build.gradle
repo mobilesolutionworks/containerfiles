@@ -4,6 +4,8 @@ plugins {
 def buildRequires = [
         'oraclelinux9-ci' : 'oraclelinux9',
         'oraclelinux9-pkg': 'oraclelinux9',
+        'oraclelinux8-ci' : 'oraclelinux8',
+        'oraclelinux8-pkg': 'oraclelinux8',
 ]
 
 def buildTasks = project.fileTree(dir: '.').matching { it ->
