@@ -1,9 +1,9 @@
-FROM docker.funf/ubuntu:lunar as files
+FROM docker.mobilesolutionworks.com/ubuntu:lunar as files
 
 ADD files /files
 RUN chmod 644 /files/etc/apt/trusted.gpg.d/mobilesolutionworks.gpg
 
-FROM docker.funf/ubuntu:lunar as ubuntu
+FROM docker.mobilesolutionworks.com/ubuntu:lunar as ubuntu
 
 COPY --from=files /files /
 

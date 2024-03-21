@@ -1,4 +1,4 @@
-FROM docker.funf/build/oraclelinux9 as files
+FROM docker.mobilesolutionworks.com/build/oraclelinux9 as files
 
 ADD files /files
 RUN export SDKMAN_DIR="/usr/local/sdkman" \
@@ -6,7 +6,7 @@ RUN export SDKMAN_DIR="/usr/local/sdkman" \
     && mkdir -p /files/usr/local/ \
     && cp -r /usr/local/sdkman /files/usr/local/
 
-FROM docker.funf/build/oraclelinux9 as oraclelinux
+FROM docker.mobilesolutionworks.com/build/oraclelinux9 as oraclelinux
 
 COPY --from=files /files /
 

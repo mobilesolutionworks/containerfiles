@@ -31,17 +31,17 @@ def buildTasks = project.fileTree(dir: '.').matching { it ->
 
         doLast {
             exec {
-                commandLine(['docker', 'build', '--compress', '--pull', '-t', "registry.funf/build/%s".formatted(name), '.', '--file', 'Containerfile'])
+                commandLine(['docker', 'build', '--compress', '--pull', '-t', "registry.mobilesolutionworks.com/build/%s".formatted(name), '.', '--file', 'Containerfile'])
                 workingDir(name)
             }
 
             exec {
-                commandLine(['docker', 'push', "registry.funf/build/%s".formatted(name)])
+                commandLine(['docker', 'push', "registry.mobilesolutionworks.com/build/%s".formatted(name)])
                 workingDir(name)
             }
 
             exec {
-                commandLine(['docker', 'inspect', "registry.funf/build/%s".formatted(name)])
+                commandLine(['docker', 'inspect', "registry.mobilesolutionworks.com/build/%s".formatted(name)])
                 workingDir(name)
                 standardOutput = inspectFile.newOutputStream()
             }
@@ -75,7 +75,7 @@ tasks.register('auth') {
 
     doLast {
         exec {
-            commandLine(['docker', 'login', 'registry.funf', '--username', 'gh', '--password-stdin'])
+            commandLine(['docker', 'login', 'registry.mobilesolutionworks.com', '--username', 'gh', '--password-stdin'])
             standardInput = new ByteArrayInputStream('gh'.bytes)
         }
     }

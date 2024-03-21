@@ -1,4 +1,4 @@
-FROM docker.funf/build/oraclelinux8 as oraclelinux
+FROM docker.mobilesolutionworks.com/build/oraclelinux8 as oraclelinux
 
 RUN yum update -y && yum install -y \
     rpmdevtools rpm-build rpm-sign \

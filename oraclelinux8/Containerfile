@@ -1,9 +1,9 @@
-FROM docker.funf/oraclelinux:8 as files
+FROM docker.mobilesolutionworks.com/oraclelinux:8 as files
 
 ADD files /files
 RUN chmod 644 /files/etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
 
-FROM docker.funf/oraclelinux:8 as oraclelinux
+FROM docker.mobilesolutionworks.com/oraclelinux:8 as oraclelinux
 
 COPY --from=files /files /
 
